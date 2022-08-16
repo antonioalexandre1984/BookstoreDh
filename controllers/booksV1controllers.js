@@ -91,8 +91,10 @@ const booksV1Controllers = {
             if (!book) {
                 return res.status(404).json({ err: true, message: "Livro não encontrado" });
             }
-            await book.destroy();
-            return res.status(204).json();
+            await Book.destroy({
+                where:{id}
+            });
+            return res.status(204).json({message:"Livro deletado com sucesso"});
         } catch (err) {
             console.log(err)
             if (err.name === 'SequelizeConnectionRefusedError') {
